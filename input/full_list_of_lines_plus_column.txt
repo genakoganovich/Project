@@ -1,0 +1,8 @@
+bp-2184	bp-2184__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4_mf3.gsd.sgy
+ds-0505	ds-0505__pstm__tcig__0103__0001__0004_dir2_comf_ap300_offs3_ba3-4_velup01.gsd.sgy
+ds-0542	ds-0542__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4_mf3.gsd.sgy
+ds-0554	ds-0554__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4_mf3.gsd.sgy
+ds-0629	ds-0629__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4_velup01.gsd.sgy
+ds-0640	ds-0640__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4_velup01.gsd.sgy
+ds-0689	ds-0689__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4.gsd.sgy
+ds-0806	ds-0806__pstm__tcig__0003__0001__0004_dir2_comf_ap300_offs3_ba3-4_mf3.gsd.sgy
