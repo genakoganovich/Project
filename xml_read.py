@@ -81,12 +81,5 @@ def get_data_to_append(line_parts, part, left_width, sgy_file):
         return part.childNodes[0].data
 
 
-def test():
-    with minidom.parse('input/template.xml') as file:
-        line = file.getElementsByTagName('line')[0]
-        print(len(line.childNodes))
-
-
 if __name__ == '__main__':
     print_xml(Sgy('./input/', 'LINE-NAME_PRODUCT-NAME__20230304.sgy'))
-    # test()

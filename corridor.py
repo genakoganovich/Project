@@ -1,14 +1,10 @@
 import numpy as np
 import pandas as pd
-from os import listdir
-from os.path import isfile, join
+from os.path import join
+from util import create_file_list
 
 IN_PATH = '../input/001_cmp_picking'
 OUT_PATH = '../output/001_zomf_corr'
-
-
-def create_file_list(path):
-    return [f for f in listdir(path) if isfile(join(path, f))]
 
 
 def to_zomf_corridor(input_name, output_name, save_header, max_angle, corridor_width, min_velocity):

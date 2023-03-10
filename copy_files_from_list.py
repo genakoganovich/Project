@@ -50,7 +50,6 @@ def count_total_lines(list_file, header_size):
 
 def run():
     start_time = time.time()
-    # print count_total_lines(LIST_FILE, HEADER_SIZE)
     append(LIST_FILE, TARGET_FILE, HEADER_SIZE)
     print(time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time)))
 

@@ -1,6 +1,5 @@
-from os import listdir
-from os.path import isfile, join
 import struct
+from util import create_file_list
 
 HEADERS_FILE_PSTM = 'input/DS-0244_MF-PSTM_on_Topography.txt'
 HEADERS_FILE_PSDM = 'input/DS-0244_MF-PSDM_on_datum.txt'
@@ -105,10 +104,6 @@ def save_txt_header_to_target(header_lines, sgy, header_type):
                 line = replace_datum(line, sgy.datum)
 
             f.write(line.strip().ljust(80).encode('cp500'))
-
-
-def create_file_list(path):
-    return [f for f in listdir(path) if isfile(join(path, f))]
 
 
 def import_txt_header(header_lines, path, header_type):
