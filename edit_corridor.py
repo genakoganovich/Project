@@ -8,17 +8,16 @@ OUT_PATH = '../output/002_zomf_corr_edit'
 
 
 def edit_zomf_corridor(input_name, output_name, time, delta_velocity):
-    def update(x):
+    def add_velocity(x):
         return round(x + delta_velocity, 2)
 
     df = pd.read_csv(input_name, sep='\t', header=0)
-    df['V'] = df['V'].apply(update)
-
+    df.loc[df['T'] > time, ['V']] = df.loc[df['T'] > time, ['V']].apply(add_velocity)
     df.to_csv(output_name, sep='\t', index=False)
 
 
 def run():
-    time = 1.55334
+    time = 1
     delta_velocity = 1000
 
     for name in create_file_list(IN_PATH):
