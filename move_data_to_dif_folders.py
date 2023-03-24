@@ -10,8 +10,8 @@
 from os.path import join
 import util
 
-FILES = './input/files_1.txt'
-TARGET_FOLDER = 'c:/Users/gennady/PycharmProjects/output/005_folder_target/'
+FILES = './input/file_names.txt'
+TARGET_FOLDER = 'c:/Users/Gena/PycharmProjects/input/003_photo/'
 
 
 def run(folder, file_name):
