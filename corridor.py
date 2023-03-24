@@ -8,12 +8,17 @@ OUT_PATH = '../output/001_zomf_corr'
 
 
 def to_zomf_corridor(input_name, output_name, save_header, max_angle, corridor_width, min_velocity):
+    def update_velocity(velocity):
+        if velocity < min_velocity + corridor_width / 2:
+            return min_velocity + corridor_width / 2
+        else:
+            return velocity
+
     df = pd.read_csv(input_name, sep='\t', skiprows=13, usecols=np.arange(7), dtype=np.float64, names=save_header.split())
     df.iloc[:, 6] = max_angle
     df.iloc[:, 5] = corridor_width
     df.iloc[:, 4] = df.iloc[:, 3]
-    df.iloc[:, 2] = df.iloc[:, 2]\
-        .apply(lambda x: min_velocity + corridor_width / 2 if x < min_velocity + corridor_width / 2 else x)
+    df.iloc[:, 2] = df.iloc[:, 2].apply(update_velocity)
     df.iloc[:, 3] = 0
     df.to_csv(output_name, sep='\t', index=False)
 
