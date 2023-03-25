@@ -36,3 +36,7 @@ def move_file_to_folder(full_name_file, target_folder, overwrite=True):
 
 def find_duplication(lines):
     print(set([x for x in lines if lines.count(x) > 1]))
+
+
+def remove_duplicates(lines):
+    return list(set(lines))
