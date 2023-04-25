@@ -8,7 +8,8 @@ OUT_PATH = '../output/006_trace_headers_out'
 
 
 def remove_column(input_name, output_name):
-    df = pd.read_csv(input_name, sep='\t', skiprows=6, usecols=np.arange(3), dtype=np.float64)
+    df = pd.read_csv(input_name, sep='\t', skiprows=5, usecols=np.arange(3),
+                     dtype={0: np.int32, 1: np.int32, 2: np.float64})
     df.iloc[:, 2] = df.iloc[:, 2].apply(lambda x: x / 1000)
     df.to_csv(output_name, sep='\t', index=False)
 
