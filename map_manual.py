@@ -1,10 +1,10 @@
 if __name__ == '__main__':
-    il_beg = 4769
-    il_end = 5889
-    il_step = 40
+    il_beg = 4460
+    il_end = 4780
+    il_step = 80
 
-    xl_beg = 10283
-    xl_end = 10843
+    xl_beg = 10105
+    xl_end = 10185
     xl_step = 40
 
     for il in range(il_beg, il_end + il_step, il_step):
