@@ -40,10 +40,10 @@ def analyze_log_file(filename):
 
 # filename1 = 'input/logs/001_piggy/003_Denison3D_piggy01_bulk03.txt'
 
-filename1 = 'input/logs/001_piggy/001_Denison3D_piggy01_bulk01.txt'
-analyze_log_file(filename1)
+# filename1 = 'input/logs/001_piggy/001_Denison3D_piggy01_bulk01.txt'
+# analyze_log_file(filename1)
 
-filename2 = 'input/logs/002_virtual_machine/gNavigator[PID=25116][DB=Denison3D][Project=004_enh][Flow=001_enh]_2023-05-17_11-18-14.0.log'
+filename2 = 'input/logs/002_virtual_machine/gNavigator[PID=25116][DB=Denison3D][Project=004_enh][Flow=001_enh]_2023-05-17_11-18-14.3.log'
 analyze_log_file(filename2)
 
 

@@ -38,6 +38,7 @@ def plot_corridor_3d(input_name):
     plt.show()
 
 
+
 def run():
     for name in create_file_list(IN_PATH):
         plot_corridor_3d(join(IN_PATH, name))
