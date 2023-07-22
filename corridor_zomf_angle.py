@@ -12,12 +12,10 @@ def limit_angle_zomf_corr(input_name, output_name, save_header):
 
     def update_angle(time):
         if time < 0.3:
-            return np.deg2rad(5 + time / 0.06)
-
+            return np.deg2rad(5)
         if time < 0.6:
-            return np.deg2rad(10 + (10 * time - 3)/0.15)
-
-        return np.deg2rad(30)
+            return np.deg2rad(50 * time - 10)
+        return np.deg2rad(20)
 
     df.iloc[:, 6] = df.iloc[:, 4].apply(update_angle)
 

@@ -9,8 +9,8 @@ OUT_PATH = '../output/001_zomf_corr'
 
 def to_zomf_corridor(input_name, output_name, save_header, max_angle, corridor_width, min_velocity):
     def update_velocity(velocity):
-        if velocity < min_velocity + corridor_width / 2:
-            return min_velocity + corridor_width / 2
+        if velocity < min_velocity + corridor_width:
+            return min_velocity + corridor_width
         else:
             return velocity
 
