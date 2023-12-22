@@ -1,27 +1,37 @@
 from xml.dom import minidom
 import struct
+from os.path import join
+from util import create_file_list
+
+SGY_PATH = '../input/010_sgys'
+TEMPLATE_PATH = '../input/011_template/text_header_template.xml'
+PROJECT_INFO_PATH = '../input/012_project_info/project_info.xml'
 
 
-class Sgy:
+class SgyAttr:
     TEXT_HEADER_SIZE = 3200
+    BIN_HEADER_SIZE = 400
     S_I = 17
     S_N = 21
+    DATUM = 52
 
     def __init__(self, path, file_name):
         self.path = path
         self.file_name = file_name
-        self.full_name = path + file_name
+        self.full_name = join(SGY_PATH, file_name)
         self.attributes = dict()
         self.attributes['line'] = file_name[0:str(file_name).find('_')]
-        self.attributes['sample_interval'] = str(Sgy.get_s_interval(self.full_name)) + ' MS'
-        self.attributes['trace_length'] = str(Sgy.get_s_len(self.full_name)) + ' MS'
-        self.attributes['datum'] = str(100) + ' M'
+        self.attributes['sample_interval'] = str(SgyAttr.get_s_interval(self.full_name))
+        self.attributes['trace_length'] = str(SgyAttr.get_s_len(self.full_name))
+        self.attributes['datum'] = str(SgyAttr.get_datum(self.full_name))
 
     def __repr__(self):
         rep = 'Sgy(' + self.path + ', ' \
               + self.file_name + ', ' \
-              + str(self.s_interval) + ', ' \
-              + str(self.s_len) + ')'
+              + str(self.get_attribute('line')) + ', ' \
+              + str(self.get_attribute('sample_interval')) + ', ' \
+              + str(self.get_attribute('trace_length')) + ', ' \
+              + str(self.get_attribute('datum')) + ')'
         return rep
 
     def get_attribute(self, key):
@@ -35,39 +45,49 @@ class Sgy:
 
     @staticmethod
     def get_s_interval(file_name):
-        return int(Sgy.get_value(file_name, Sgy.TEXT_HEADER_SIZE + Sgy.S_I, 'h', 2) / 1000)
+        return int(
+            SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_I, 'h', 2) / 1000)
 
     @staticmethod
     def get_s_number(file_name):
-        return Sgy.get_value(file_name, Sgy.TEXT_HEADER_SIZE + Sgy.S_N, 'h', 2)
+        return SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_N, 'h', 2)
 
     @staticmethod
     def get_s_len(file_name):
-        return Sgy.get_s_interval(file_name) * (Sgy.get_s_number(file_name) - 1)
+        return SgyAttr.get_s_interval(file_name) * (SgyAttr.get_s_number(file_name) - 1)
+
+    @staticmethod
+    def get_datum(file_name):
+        return int(
+            SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.BIN_HEADER_SIZE +
+                              SgyAttr.DATUM, '>I', 4) / 100)
 
 
-def print_xml(sgy_file):
-    line_parts = []
-    with minidom.parse('input/template.xml') as file:
+def create_text_header(sgy_file):
+    result = []
+    line_to_add = []
+    with minidom.parse(TEMPLATE_PATH) as file:
         total_width = int(file.getElementsByTagName('total_width')[0].childNodes[0].data)
         left_width = int(file.getElementsByTagName('left_width')[0].childNodes[0].data)
 
         count = 1
 
         for line in file.getElementsByTagName('line'):
-            line_parts.append('C{0:2d}  '.format(count))
+            line_to_add.append('C{0:2d}  '.format(count))
 
             for part in line.getElementsByTagName('part'):
-                line_parts.append(get_data_to_append(line_parts, part, left_width, sgy_file))
+                line_to_add.append(get_data_to_append(line_to_add, part, left_width, sgy_file))
 
-            print("".join(line_parts).ljust(total_width))
+            result.append("".join(line_to_add).ljust(total_width))
             count += 1
-            line_parts.clear()
+            line_to_add.clear()
+
+        return result
 
 
 def get_data_to_append(line_parts, part, left_width, sgy_file):
     if part.getAttribute("info").startswith('xml'):
-        with minidom.parse('input/Project_info.xml') as file:
+        with minidom.parse(PROJECT_INFO_PATH) as file:
             info_value = file.getElementsByTagName(part.getAttribute("info").split()[1])[0].childNodes[0].data
         return info_value
 
@@ -81,5 +101,17 @@ def get_data_to_append(line_parts, part, left_width, sgy_file):
         return part.childNodes[0].data
 
 
+def save_text_header(text_header, sgy):
+    with open(sgy.full_name, 'r+b') as f:
+        for line in text_header:
+            f.write(line.strip().ljust(80).encode('cp500'))
+
+
+def run():
+    for name in create_file_list(SGY_PATH):
+        sgy_attr = SgyAttr(SGY_PATH, name)
+        save_text_header(create_text_header(sgy_attr), sgy_attr)
+
+
 if __name__ == '__main__':
-    print_xml(Sgy('./input/', 'LINE-NAME_PRODUCT-NAME__20230304.sgy'))
+    run()
