@@ -63,32 +63,30 @@ class SgyAttr:
                               SgyAttr.DATUM, '>I', 4) / 100)
 
 
-def create_text_header(sgy_file):
+def create_text_header(sgy_file, template_dom, project_dom):
     result = []
     line_to_add = []
-    with minidom.parse(TEMPLATE_PATH) as file:
-        total_width = int(file.getElementsByTagName('total_width')[0].childNodes[0].data)
-        left_width = int(file.getElementsByTagName('left_width')[0].childNodes[0].data)
+    total_width = int(template_dom.getElementsByTagName('total_width')[0].childNodes[0].data)
+    left_width = int(template_dom.getElementsByTagName('left_width')[0].childNodes[0].data)
 
-        count = 1
+    count = 1
 
-        for line in file.getElementsByTagName('line'):
-            line_to_add.append('C{0:2d}  '.format(count))
+    for line in template_dom.getElementsByTagName('line'):
+        line_to_add.append('C{0:2d}  '.format(count))
 
-            for part in line.getElementsByTagName('part'):
-                line_to_add.append(get_data_to_append(line_to_add, part, left_width, sgy_file))
+        for part in line.getElementsByTagName('part'):
+            line_to_add.append(get_data_to_append(line_to_add, part, left_width, sgy_file, project_dom))
 
-            result.append("".join(line_to_add).ljust(total_width))
-            count += 1
-            line_to_add.clear()
+        result.append("".join(line_to_add).ljust(total_width))
+        count += 1
+        line_to_add.clear()
 
-        return result
+    return result
 
 
-def get_data_to_append(line_parts, part, left_width, sgy_file):
+def get_data_to_append(line_parts, part, left_width, sgy_file, project_dom):
     if part.getAttribute("info").startswith('xml'):
-        with minidom.parse(PROJECT_INFO_PATH) as file:
-            info_value = file.getElementsByTagName(part.getAttribute("info").split()[1])[0].childNodes[0].data
+        info_value = project_dom.getElementsByTagName(part.getAttribute("info").split()[1])[0].childNodes[0].data
         return info_value
 
     elif part.getAttribute("info").startswith('sgy'):
@@ -107,11 +105,12 @@ def save_text_header(text_header, sgy):
             f.write(line.strip().ljust(80).encode('cp500'))
 
 
-def run():
-    for name in create_file_list(SGY_PATH):
-        sgy_attr = SgyAttr(SGY_PATH, name)
-        save_text_header(create_text_header(sgy_attr), sgy_attr)
+def run(temp_path, info_path):
+    with minidom.parse(temp_path) as template_dom, minidom.parse(info_path) as project_dom:
+        for name in create_file_list(SGY_PATH):
+            sgy_attr = SgyAttr(SGY_PATH, name)
+            save_text_header(create_text_header(sgy_attr, template_dom, project_dom), sgy_attr)
 
 
 if __name__ == '__main__':
-    run()
+    run(TEMPLATE_PATH, PROJECT_INFO_PATH)
