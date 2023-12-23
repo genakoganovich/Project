@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<text_header>
+    <lines_number>40</lines_number>
+    <total_width>80</total_width>
+    <left_width>31</left_width>
+
+    <lines>
+        <line number="C01">
+			<part>CLIENT: </part>
+            <part info="xml client"></part>
+            <part column="left"></part>
+            <part>PROCESSING COMPANY: GEOMAGE 2003 LTD.</part>
+        </line>
+        <line number="C02">
+			<part>LINE: </part>
+            <part info="sgy line"></part>
+            <part column="left"></part>
+            <part>AREA: </part>
+            <part info="xml area"></part>
+        </line>
+        <line number="C03">
+			<part>SAMPLE INTERVAL: </part>
+            <part info="sgy sample_interval"></part>
+			<part> MS</part>
+            <part column="left"></part>
+            <part>SAMPLE TRACE LENGTH: </part>
+            <part info="sgy trace_length"></part>
+			<part> MS</part>
+        </line>
+        <line number="C04">
+        </line>
+        <line number="C05">
+			<part>DATE: </part>
+            <part info="xml date"></part>
+        </line>
+        <line number="C06">
+			<part>PRODUCT: </part>
+            <part info="xml product"></part>
+        </line>
+        <line number="C07">
+            <part>DATUM: </part>
+            <part info="xml datum"></part>
+			<part> M</part>
+            <part column="left"></part>
+            <part>REPLACEMENT VELOCITY: </part>
+            <part info="xml velocity"></part>
+			<part> M/S</part>
+        </line>
+        <line number="C08">
+        </line>
+        <line number="C09">
+			<part>PROCESSING SEQUENCE: </part>
+        </line>
+        <line number="C10">
+        </line>
+        <line number="C11">
+        </line>
+        <line number="C12">
+        </line>
+        <line number="C13">
+        </line>
+        <line number="C14">
+        </line>
+        <line number="C15">
+        </line>
+        <line number="C16">
+        </line>
+        <line number="C17">
+        </line>
+        <line number="C18">
+        </line>
+        <line number="C19">
+        </line>
+        <line number="C20">
+        </line>
+        <line number="C21">
+        </line>
+        <line number="C22">
+        </line>
+        <line number="C23">
+        </line>
+        <line number="C24">
+        </line>
+        <line number="C25">
+        </line>
+        <line number="C26">
+        </line>
+        <line number="C27">
+        </line>
+        <line number="C28">
+        </line>
+        <line number="C29">
+			<part>HEADER DESCRIPTION: </part>
+        </line>
+        <line number="C30">
+            <part>CDP-21 (I4); CDP X-181 (I4); CDP Y-185 (I4); CDP Z-41 (I4);</part>
+        </line>
+        <line number="C31">
+            <part>SCALAR TO ALL ELEVATIONS-69 (I2);</part>
+        </line>
+        <line number="C32">
+            <part>SCALAR TO ALL COORDINATES-71 (I2);</part>
+        </line>
+        <line number="C33">
+        </line>
+        <line number="C34">
+        </line>
+        <line number="C35">
+        </line>
+        <line number="C36">
+        </line>
+        <line number="C37">
+        </line>
+        <line number="C38">
+        </line>
+        <line number="C39">
+        </line>
+        <line number="C40">
+			<part>END EBCDIC</part>
+        </line>
+
+    </lines>
+</text_header>
