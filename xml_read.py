@@ -1,11 +1,12 @@
+import math
 from xml.dom import minidom
 import struct
 from os.path import join
 from util import create_file_list
 
-SGY_PATH = '../input/010_sgys'
-TEMPLATE_PATH = '../input/011_template/text_header_template.xml'
-PROJECT_INFO_PATH = '../input/012_project_info/project_info.xml'
+SGY_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20232512_pstm/002_pstm_proc'
+TEMPLATE_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20232512_pstm/xml/pstm_text_header_template.xml'
+PROJECT_INFO_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20232512_pstm/xml/pstm_q_project_info.xml'
 
 
 class SgyAttr:
@@ -45,8 +46,8 @@ class SgyAttr:
 
     @staticmethod
     def get_s_interval(file_name):
-        return int(
-            SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_I, 'h', 2) / 1000)
+        return math.ceil(SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_I,
+                                           'h', 2) / 1000)
 
     @staticmethod
     def get_s_number(file_name):
