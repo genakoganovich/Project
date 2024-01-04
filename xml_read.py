@@ -4,9 +4,9 @@ import struct
 from os.path import join
 from util import create_file_list
 
-SGY_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20232512_pstm/002_pstm_proc'
-TEMPLATE_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20232512_pstm/xml/pstm_text_header_template.xml'
-PROJECT_INFO_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20232512_pstm/xml/pstm_q_project_info.xml'
+SGY_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20240104_MF-PSDM_Q_Scaled_2D/MF-PSDM_Q_Scaled'
+TEMPLATE_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20240104_MF-PSDM_Q_Scaled_2D/xml/001_template/psdm_q_scaled_text_header_template.xml'
+PROJECT_INFO_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20240104_MF-PSDM_Q_Scaled_2D/xml/002_project_info/psdm_q_scaled_project_info.xml'
 
 
 class SgyAttr:
@@ -22,8 +22,10 @@ class SgyAttr:
         self.full_name = join(SGY_PATH, file_name)
         self.attributes = dict()
         self.attributes['line'] = file_name[0:str(file_name).find('_')]
-        self.attributes['sample_interval'] = str(SgyAttr.get_s_interval(self.full_name))
-        self.attributes['trace_length'] = str(SgyAttr.get_s_len(self.full_name))
+        self.attributes['sample_interval_depth'] = str(SgyAttr.get_s_interval_depth(self.full_name))
+        self.attributes['trace_length_depth'] = str(SgyAttr.get_s_len_depth(self.full_name))
+        self.attributes['sample_interval_time'] = str(SgyAttr.get_s_interval_time(self.full_name))
+        self.attributes['trace_length_time'] = str(SgyAttr.get_s_len_time(self.full_name))
         self.attributes['datum'] = str(SgyAttr.get_datum(self.full_name))
 
     def __repr__(self):
@@ -45,7 +47,12 @@ class SgyAttr:
             return int(struct.unpack(format_character, f.read(size))[0])
 
     @staticmethod
-    def get_s_interval(file_name):
+    def get_s_interval_depth(file_name):
+        return math.ceil(SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_I,
+                                           'h', 2))
+
+    @staticmethod
+    def get_s_interval_time(file_name):
         return math.ceil(SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_I,
                                            'h', 2) / 1000)
 
@@ -54,8 +61,12 @@ class SgyAttr:
         return SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_N, 'h', 2)
 
     @staticmethod
-    def get_s_len(file_name):
-        return SgyAttr.get_s_interval(file_name) * (SgyAttr.get_s_number(file_name) - 1)
+    def get_s_len_depth(file_name):
+        return SgyAttr.get_s_interval_depth(file_name) * (SgyAttr.get_s_number(file_name))
+
+    @staticmethod
+    def get_s_len_time(file_name):
+        return SgyAttr.get_s_interval_depth(file_name) * (SgyAttr.get_s_number(file_name) - 1)
 
     @staticmethod
     def get_datum(file_name):
