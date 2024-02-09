@@ -4,9 +4,9 @@ import struct
 from os.path import join
 from util import create_file_list
 
-SGY_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20240104_MF-PSDM_Q_Scaled_2D/MF-PSDM_Q_Scaled'
-TEMPLATE_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20240104_MF-PSDM_Q_Scaled_2D/xml/001_template/psdm_q_scaled_text_header_template.xml'
-PROJECT_INFO_PATH = '/mnt/fastssd/BE_Perth2D/900_SENT/20240104_MF-PSDM_Q_Scaled_2D/xml/002_project_info/psdm_q_scaled_project_info.xml'
+SGY_PATH = '../input/010_sgys'
+TEMPLATE_PATH = '../input/011_template/template.xml'
+PROJECT_INFO_PATH = '../input/012_project_info/project_info.xml'
 
 
 class SgyAttr:
@@ -66,7 +66,7 @@ class SgyAttr:
 
     @staticmethod
     def get_s_len_time(file_name):
-        return SgyAttr.get_s_interval_depth(file_name) * (SgyAttr.get_s_number(file_name) - 1)
+        return SgyAttr.get_s_interval_time(file_name) * (SgyAttr.get_s_number(file_name) - 1)
 
     @staticmethod
     def get_datum(file_name):
