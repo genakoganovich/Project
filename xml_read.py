@@ -49,7 +49,7 @@ class SgyAttr:
     @staticmethod
     def get_s_interval_depth(file_name):
         return math.ceil(SgyAttr.get_value(file_name, SgyAttr.TEXT_HEADER_SIZE + SgyAttr.S_I,
-                                           'h', 2))
+                                           'h', 2) / 1000)
 
     @staticmethod
     def get_s_interval_time(file_name):
@@ -62,7 +62,7 @@ class SgyAttr:
 
     @staticmethod
     def get_s_len_depth(file_name):
-        return SgyAttr.get_s_interval_depth(file_name) * (SgyAttr.get_s_number(file_name))
+        return math.ceil(SgyAttr.get_s_interval_depth(file_name) * (SgyAttr.get_s_number(file_name) - 1))
 
     @staticmethod
     def get_s_len_time(file_name):

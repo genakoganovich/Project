@@ -3,8 +3,8 @@ import pandas as pd
 from os.path import join
 from util import create_file_list
 
-IN_PATH = '../input/010_export_IL_XL_in'
-OUT_PATH = '../output/010_export_IL_XL_out'
+IN_PATH = '../input/013_export_IL_XL_in'
+OUT_PATH = '../output/013_export_IL_XL_out'
 
 
 def export_il_xl(input_name, output_name):
