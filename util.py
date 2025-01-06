@@ -40,3 +40,16 @@ def find_duplication(lines):
 
 def remove_duplicates(lines):
     return list(set(lines))
+def find_end_header_line(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            for line_number, line in enumerate(file, start=1):
+                if line.startswith("End_Header"):
+                    return line_number
+        return None  # Если строка не найдена
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
