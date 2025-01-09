@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import util
 from os.path import join
 from util import create_file_list
 
@@ -8,12 +9,13 @@ OUT_PATH = '../output/001_zomf_corr'
 
 
 def to_zomf_corridor(input_name, output_name, save_header, max_angle, corr_w, min_w, max_w, min_vel):
-    df = pd.read_csv(input_name, sep='\t', skiprows=14, usecols=np.arange(7), dtype=np.float64,
+    skip_rows_value = util.find_end_header_line(input_name) + 1
+    df = pd.read_csv(input_name, sep='\t', skiprows=skip_rows_value, usecols=np.arange(7), dtype=np.float64,
                      names=save_header.split())
     max_t = df.iloc[:, 3].max()
 
     df.iloc[:, 6] = max_angle
-    df.iloc[:, 5] = df.iloc[:, 3].apply(lambda t: round(min_w + (t / max_t) * (max_w - min_w)), 1)
+    df.iloc[:, 5] = df.iloc[:, 3].astype(object).apply(lambda t: round(min_w + (t / max_t) * (max_w - min_w), 1))
     df.iloc[:, 4] = df.iloc[:, 3]
     df.iloc[:, 2] = df.apply(lambda row: round(row.iloc[2] + row.iloc[5] / 2, 2), axis=1)
     df.iloc[:, 2] = df.iloc[:, 2].apply(lambda vel: min_vel + corr_w if vel < min_vel + corr_w else vel)
