@@ -14,7 +14,7 @@ def to_zomf_corridor(input_name, output_name, save_header, max_angle, corridor_w
         else:
             return velocity
 
-    df = pd.read_csv(input_name, sep='\t', skiprows=13, usecols=np.arange(7), dtype=np.float64, names=save_header.split())
+    df = pd.read_csv(input_name, sep='\t', skiprows=13, usecols=np.arange(4), dtype=np.float64, names=save_header.split())
     df.iloc[:, 6] = max_angle
     df.iloc[:, 5] = corridor_width
     df.iloc[:, 4] = df.iloc[:, 3]
@@ -26,8 +26,8 @@ def to_zomf_corridor(input_name, output_name, save_header, max_angle, corridor_w
 def run():
     save_header = 'XCoord	YCoord	V	A	T	DeltaV	DeltaA'
     max_angle = 1.55334
-    corridor_width = 500
-    min_velocity = 1500
+    corridor_width = 600
+    min_velocity = 1000
     for name in create_file_list(IN_PATH):
         to_zomf_corridor(join(IN_PATH, name), join(OUT_PATH, name), save_header, max_angle, corridor_width, min_velocity)
 
